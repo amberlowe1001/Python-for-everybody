@@ -1,7 +1,4 @@
 import sqlite3
-import email
-import string
-
 
 conn = sqlite3.connect('emaildb.sqlite')
 cur = conn.cursor()
@@ -10,14 +7,17 @@ cur.execute('DROP TABLE IF EXISTS Counts')
 
 cur.execute('''
 CREATE TABLE Counts (org TEXT, count INTEGER)''')
-org = email
-fname = input('mbox-short.txt: ')
-if (len(fname) < 1): fname = 'mbox.txt'
+
+fname = input('Enter file name: ')
+if (len(fname) < 1): fname = 'mbox-short.txt'
 fh = open(fname)
 for line in fh:
     if not line.startswith('From: '): continue
     pieces = line.split()
     email = pieces[1]
+    # print(email)
+    org = email.split('@')[1]
+    # print(org)
     cur.execute('SELECT count FROM Counts WHERE org = ? ', (org,))
     row = cur.fetchone()
     if row is None:
@@ -26,8 +26,8 @@ for line in fh:
     else:
         cur.execute('UPDATE Counts SET count = count + 1 WHERE org = ?',
                     (org,))
-    conn.commit()
 
+    conn.commit()
 # https://www.sqlite.org/lang_select.html
 sqlstr = 'SELECT org, count FROM Counts ORDER BY count DESC LIMIT 10'
 
