@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('emaildb.sqlite')
+conn = sqlite3.connect('emaildb.sqlite3')
 cur = conn.cursor()
 
 cur.execute('DROP TABLE IF EXISTS Counts')
@@ -13,7 +13,7 @@ fh = open(fname)
 for line in fh:
     if not line.startswith('From: '): continue
     pieces = line.split()
-    email = pieces[1]
+    org = pieces[1]
     cur.execute('SELECT count FROM Counts WHERE org = ? ', (org,))
     row = cur.fetchone()
     if row is None:
