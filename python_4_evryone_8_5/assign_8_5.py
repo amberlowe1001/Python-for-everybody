@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
+fname = input("mbox.txt ")
+=======
 fname = input("Enter file name: ")
-if len(fname) < 1 : fname = "mbox-short.txt"
+>>>>>>> Stashed changes
+if len(fname) < 1 : fname = "mbox.txt"
 fh = open(fname)
 count = 0
 for line in fh:
