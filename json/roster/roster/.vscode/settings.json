@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:roster}/roster_data.json",
+            "name": "roster"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
